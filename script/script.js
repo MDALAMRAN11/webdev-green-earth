@@ -57,6 +57,9 @@ fetch("https://openapi.programming-hero.com/api/plants")
                             </div>
             `;
         });
+        document
+            .getElementById("all-trees")
+            .classList.add("bg-[#166534]", "text-white");
         removeLoading();
     });
 // all categories---------
@@ -83,7 +86,16 @@ fetch("https://openapi.programming-hero.com/api/categories")
     });
 
 document.getElementById("left-section").addEventListener("click", function (e) {
+    addLoading();
     if (e.target.tagName === "BUTTON") {
+        document
+            .querySelectorAll("#allDiv-categories button")
+            .forEach((btn) => {
+                btn.classList.remove("bg-[#166534]", "text-white");
+            });
+        document
+            .getElementById(e.target.id)
+            .classList.add("bg-[#166534]", "text-white");
         fetch(
             `https://openapi.programming-hero.com/api/${
                 e.target.id === "all-trees"
@@ -133,6 +145,50 @@ document.getElementById("left-section").addEventListener("click", function (e) {
                             </div>
                     `;
                 });
+                removeLoading();
             });
     }
 });
+
+document
+    .getElementById("middle-section-Cards")
+    .addEventListener("click", function (e) {
+        //console.log(e.target);
+        if (e.target.innerText === "Add To Cart") {
+            const cartPrice =
+                e.target.parentNode.parentNode.children[2].children[1]
+                    .innerText;
+            const cartTitle =
+                e.target.parentNode.parentNode.children[0].innerText;
+            document.getElementById("add-to-cart-div").innerHTML += `
+            <div
+                                class="cart-item bg-[#f0fdf4] flex justify-between items-center p-2 m-2 rounded-lg"
+                            >
+                                <div>
+                                    <h1 class="font-semibold text-sm">
+                                        ${cartTitle}
+                                    </h1>
+                                    <p class="text-xs">
+                                        <span>${cartPrice}</span> x <span>1</span>
+                                    </p>
+                                </div>
+                                <div>
+                                    <button
+                                        class="delete-cart-button hover:text-red-600 cursor-pointer text-xl font-bold"
+                                    >
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+            `;
+        }
+    });
+
+document
+    .getElementById("add-to-cart-div")
+    .addEventListener("click", function (e) {
+        console.log(e.target);
+        if (e.target.closest(".delete-cart-button")) {
+            e.target.closest(".cart-item").remove();
+        }
+    });
