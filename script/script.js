@@ -78,7 +78,7 @@ fetch("https://openapi.programming-hero.com/api/categories")
             //console.log(category);
             allDivCategories.innerHTML += `
                             <button id="${category.id}"
-                                class="w-full text-left text-sm p-2 rounded-sm hover:bg-[#166534] hover:text-white"
+                                class="w-full text-left text-xs sm:text-sm p-2 rounded-sm hover:bg-[#166534] hover:text-white"
                             >
                                 ${category.category_name}
                             </button>
@@ -112,7 +112,7 @@ document.getElementById("left-section").addEventListener("click", function (e) {
                 targetedPlants.forEach((plant) => {
                     //console.log(plant);
                     middleSectionCards.innerHTML += `
-                    <div id="${plant.id}" class="card bg-base-100 shadow-sm">
+                    <div id="${plant.id}" class="card bg-base-100 shadow-xl cursor-pointer">
                                 <figure class="">
                                     <img
                                         src="${plant.image}"
@@ -159,10 +159,10 @@ const modalDetails = (plantId) => {
     }
     const modal = document.getElementById("my_modal_5");
     modal.innerHTML = `
-    <div class="modal-box p-1">
+    <div class="modal-box shadow-2xl max-h-[90vh] overflow-y-auto">
                             <h3 class="text-lg font-bold">${selectedPlant.name}</h3>
-                            <img class="w-full h-full" src="${selectedPlant.image}" alt="">
-                            <p class="py-4 font-bold">
+                            <img class="w-full h-[250px] object-cover rounded-md" src="${selectedPlant.image}" alt="">
+                            <p class="py-2 font-bold">
                                 ${selectedPlant.category}
                             </p>
                             <h1><span class="font-bold">Price: ৳</span>${selectedPlant.price}</h1>
