@@ -186,6 +186,7 @@ document
                     .innerText;
             const cartTitle =
                 e.target.parentNode.parentNode.children[0].innerText;
+            alert(`${cartTitle} has been addded to your CART 🛒`);
 
             let found = false;
             const cartItem = document.querySelectorAll(".cart-item");
