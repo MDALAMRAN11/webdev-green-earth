@@ -14,13 +14,14 @@ const middleSectionCards = document.getElementById("middle-section-Cards");
 // "description": "A fast-growing tropical tree that produces delicious, juicy mangoes during summer. Its dense green canopy offers shade, while its sweet fruits are rich in vitamins and minerals.",
 // "category": "Fruit Tree",
 // "price": 500
+let plants = [];
 addLoading();
 fetch("https://openapi.programming-hero.com/api/plants")
     .then((res) => res.json())
     .then((data) => {
         // console.log(data.plants);
         middleSectionCards.innerHTML = "";
-        const plants = data.plants;
+        plants = data.plants;
         plants.forEach((plant) => {
             middleSectionCards.innerHTML += `
             <div id="${plant.id}" class="card bg-base-100 shadow-sm">
@@ -146,15 +147,38 @@ document.getElementById("left-section").addEventListener("click", function (e) {
                     `;
                 });
                 removeLoading();
+                //modalDetails(targetedPlants);
             });
     }
 });
-
+//modal functionalities ---------------------------
+const modalDetails = (plantId) => {
+    const selectedPlant = plants.find((plant) => plant.id == plantId);
+    if (!selectedPlant) {
+        return;
+    }
+    const modal = document.getElementById("my_modal_5");
+    modal.innerHTML = `
+    <div class="modal-box p-1">
+                            <h3 class="text-lg font-bold">${selectedPlant.name}</h3>
+                            <img class="w-full h-full" src="${selectedPlant.image}" alt="">
+                            <p class="py-4 font-bold">
+                                ${selectedPlant.category}
+                            </p>
+                            <h1><span class="font-bold">Price: ৳</span>${selectedPlant.price}</h1>
+                            <p class="text-sm py-2">${selectedPlant.description}</p>
+                            <div class="modal-action">
+                                <form method="dialog">
+                                    <button class="btn btn-soft btn-error">Exit</button>
+                                </form>
+                            </div>
+                        </div>
+    `;
+    modal.showModal();
+};
 document
     .getElementById("middle-section-Cards")
     .addEventListener("click", function (e) {
-        // model section
-        //end model section
         //console.log(e.target);
         if (e.target.innerText === "Add To Cart") {
             const cartPrice =
@@ -202,6 +226,15 @@ document
             }
         }
         totalAmount();
+        const card = e.target.closest(".card");
+        if (
+            card &&
+            (e.target.tagName === "H2" ||
+                e.target.tagName === "P" ||
+                e.target.tagName === "IMG")
+        ) {
+            modalDetails(card.id);
+        }
     });
 
 document
@@ -218,7 +251,7 @@ const totalAmount = () => {
     const cartItem = document.querySelectorAll(".cart-item");
     let total = 0;
     cartItem.forEach((item) => {
-        console.log(item);
+        //console.log(item);
         const quantitySpan = parseInt(
             item.querySelector("p span:last-child").innerText
         );
