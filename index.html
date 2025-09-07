@@ -72,6 +72,29 @@
         <main>
             <!-- All javascript and API Logic is here-------------- -->
             <section class="w-11/12 mx-auto">
+                <div>
+                    <!-- Open the modal using ID.showModal() method -->
+                    <button class="btn" onclick="my_modal_5.showModal()">
+                        open modal
+                    </button>
+                    <dialog
+                        id="my_modal_5"
+                        class="modal modal-bottom sm:modal-middle"
+                    >
+                        <div class="modal-box">
+                            <h3 class="text-lg font-bold">Hello!</h3>
+                            <p class="py-4">
+                                Press ESC key or click the button below to close
+                            </p>
+                            <div class="modal-action">
+                                <form method="dialog">
+                                    <!-- if there is a button in form, it will close the modal -->
+                                    <button class="btn">Close</button>
+                                </form>
+                            </div>
+                        </div>
+                    </dialog>
+                </div>
                 <h1 class="text-center text-2xl font-bold py-8">
                     Choose Your Trees
                 </h1>
@@ -184,7 +207,10 @@
                         </div>
                         <div class="flex justify-around items-center p-2">
                             <p class="text-lg font-semibold">Total:</p>
-                            <p><span class="text-xl font-bold">৳</span>1000</p>
+                            <p>
+                                <span class="text-xl font-bold">৳</span
+                                ><span id="total-cart-amount">0.00</span>
+                            </p>
                         </div>
                     </section>
                 </div>

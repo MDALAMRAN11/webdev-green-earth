@@ -105,11 +105,11 @@ document.getElementById("left-section").addEventListener("click", function (e) {
         )
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.plants);
+                // console.log(data.plants);
                 const targetedPlants = data.plants;
                 middleSectionCards.innerHTML = "";
                 targetedPlants.forEach((plant) => {
-                    console.log(plant);
+                    //console.log(plant);
                     middleSectionCards.innerHTML += `
                     <div id="${plant.id}" class="card bg-base-100 shadow-sm">
                                 <figure class="">
@@ -153,6 +153,8 @@ document.getElementById("left-section").addEventListener("click", function (e) {
 document
     .getElementById("middle-section-Cards")
     .addEventListener("click", function (e) {
+        // model section
+        //end model section
         //console.log(e.target);
         if (e.target.innerText === "Add To Cart") {
             const cartPrice =
@@ -160,7 +162,23 @@ document
                     .innerText;
             const cartTitle =
                 e.target.parentNode.parentNode.children[0].innerText;
-            document.getElementById("add-to-cart-div").innerHTML += `
+
+            let found = false;
+            const cartItem = document.querySelectorAll(".cart-item");
+            cartItem.forEach((item) => {
+                // console.log(item);
+                const title = item.querySelector("h1").innerText;
+                //console.log(title);
+                if (title === cartTitle) {
+                    const quantitySpan =
+                        item.querySelector("p span:last-child");
+                    quantitySpan.innerText =
+                        parseInt(quantitySpan.innerText) + 1;
+                    found = true;
+                }
+            });
+            if (!found) {
+                document.getElementById("add-to-cart-div").innerHTML += `
             <div
                                 class="cart-item bg-[#f0fdf4] flex justify-between items-center p-2 m-2 rounded-lg"
                             >
@@ -181,14 +199,34 @@ document
                                 </div>
                             </div>
             `;
+            }
         }
+        totalAmount();
     });
 
 document
     .getElementById("add-to-cart-div")
     .addEventListener("click", function (e) {
-        console.log(e.target);
+        //console.log(e.target);
         if (e.target.closest(".delete-cart-button")) {
             e.target.closest(".cart-item").remove();
         }
+        totalAmount();
     });
+
+const totalAmount = () => {
+    const cartItem = document.querySelectorAll(".cart-item");
+    let total = 0;
+    cartItem.forEach((item) => {
+        console.log(item);
+        const quantitySpan = parseInt(
+            item.querySelector("p span:last-child").innerText
+        );
+        const cartPrice = parseInt(
+            item.querySelector("p span:first-child").innerText.replace("৳", "")
+        );
+        const multiply = quantitySpan * cartPrice;
+        total += multiply;
+    });
+    document.getElementById("total-cart-amount").innerText = total;
+};
