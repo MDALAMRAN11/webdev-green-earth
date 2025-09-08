@@ -49,7 +49,7 @@ fetch("https://openapi.programming-hero.com/api/plants")
                                     </div>
                                     <div class="card-actions">
                                         <button
-                                            class="btn btn-primary w-full bg-[#15803D] rounded-full"
+                                            class="btn btn-primary w-full bg-[#11a045] hover:bg-[#15803D] rounded-full"
                                         >
                                             Add To Cart
                                         </button>
@@ -137,7 +137,7 @@ document.getElementById("left-section").addEventListener("click", function (e) {
                                     </div>
                                     <div class="card-actions">
                                         <button
-                                            class="btn btn-primary w-full bg-[#15803D] rounded-full"
+                                            class="btn btn-primary w-full bg-[#11a045] hover:bg-[#15803D] rounded-full"
                                         >
                                             Add To Cart
                                         </button>
